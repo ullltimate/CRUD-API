@@ -76,17 +76,21 @@ router.post('/', function(req, res){
 router.delete('/:id', (req, res) => {
     // Reading isbn from the URL
     const id = Number(req.params.id);
-
-    console.debug(id);
+    let found = data.find(function (item) {
+        return item.id === parseInt(req.params.id);
+      });
     // Remove item from the books array
-    data = data.filter(i => {
-        if (i.id !== id) {
-            return true;
+    if (checkValidId(req.params.id)){
+        if(found){
+            data = data.filter(i => i.id !== id);
+            console.debug(data)
+            res.status(204);
+        } else {
+            res.sendStatus(404);
         }
-        return false;
-    });
-    console.debug(data)
-    res.send('Item is deleted');
+    } else {
+        res.sendStatus(400);
+    }
 });
 
 function createId(){
