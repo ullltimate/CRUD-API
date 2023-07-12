@@ -49,12 +49,16 @@ router.get("/:id", function (req, res) {
   let found = data.find(function (item) {
     return item.id === parseInt(req.params.id);
   });
-  console.debug(found)
+  console.debug(found);
   // if object found return an object else return 404 not-found
-  if (found) {
-    res.status(200).json(found);
+  if (checkValidId(req.params.id)){
+    if (found) {
+        res.status(200).json(found);
+      } else {
+        res.sendStatus(404);
+      }
   } else {
-    res.sendStatus(404);
+    res.sendStatus(400);
   }
 });
 
@@ -88,6 +92,11 @@ router.delete('/:id', (req, res) => {
 function createId(){
     let newId = data[data.length-1].id + 1;
     return newId;
+}
+
+function checkValidId(param){
+    const regx = new RegExp(/^\d+$/);
+    return regx.test(param);
 }
 
 //router.put('/:id', function(req, res){
