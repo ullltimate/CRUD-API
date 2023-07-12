@@ -7,38 +7,33 @@ const router = express.Router();
 let data = [
   {
     id: 1,
-    title: "Create a project",
-    order: 1,
-    completed: true,
-    createdOn: new Date(),
+    username: 'catty',
+    age: 18,
+    hobbies: 'tennis',
   },
   {
     id: 2,
-    title: "Take a cofféé",
-    order: 2,
-    completed: true,
-    createdOn: new Date(),
+    username: 'daddy',
+    age: 20,
+    hobbies: 'swimming',
   },
   {
     id: 3,
-    title: "Write new article",
-    order: 3,
-    completed: true,
-    createdOn: new Date(),
+    username: 'user123',
+    age: 22,
+    hobbies: 'running',
   },
   {
     id: 4,
-    title: "Walk toward home",
-    order: 4,
-    completed: false,
-    createdOn: new Date(),
+    username: 'user432',
+    age: 36,
+    hobbies: '',
   },
   {
     id: 5,
-    title: "Have some dinner",
-    order: 5,
-    completed: false,
-    createdOn: new Date(),
+    username: 'hobbit',
+    age: 19,
+    hobbies: 'smoke',
   },
 ];
 
@@ -65,10 +60,13 @@ router.get("/:id", function (req, res) {
 
 router.post('/', function(req, res){
     const item = req.body;
-    console.debug(item);
-    //console.log(item);
-    data.push(item);
-    res.send('Items is added to the database');
+    if (req.body.id && req.body.username && req.body.age && req.body.hobbies){
+        console.debug(item);
+        data.push(item);
+        res.status(201).json(item);
+    } else {
+        res.sendStatus(400);
+    }
 })
 
 router.delete('/:id', (req, res) => {
