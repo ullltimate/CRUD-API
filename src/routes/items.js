@@ -1,3 +1,4 @@
+import { createId, checkValidId } from "./helpers";
 const express = require("express");
 const router = express.Router();
 
@@ -57,9 +58,9 @@ router.get("/:id", function (req, res) {
 router.post('/', function(req, res){
     const item = req.body;
     if (req.body.username && req.body.age && req.body.hobbies){
-        console.debug({id: createId(), ...item});
-        data.push({id: createId(), ...item});
-        res.status(201).json({id: createId(), ...item});
+        console.debug({id: createId(data), ...item});
+        data.push({id: createId(data), ...item});
+        res.status(201).json({id: createId(data), ...item});
     } else {
         res.sendStatus(400);
     }
@@ -101,15 +102,5 @@ router.put('/:id', function(req, res){
         res.sendStatus(400);
     }
 })
-
-function createId(){
-    let newId = data[data.length-1].id + 1;
-    return newId;
-}
-
-function checkValidId(param){
-    const regx = new RegExp(/^\d+$/);
-    return regx.test(param);
-}
 
 module.exports = router;
