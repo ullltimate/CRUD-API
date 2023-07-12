@@ -11,6 +11,10 @@ app.use(cors({ origin: "http://localhost:8100" }));
 
 app.use("/items", itemsRouter);
 
+app.use(function(req, res){
+    res.status(404).send("Not found");
+})
+
 app.use("/", function (req, res) {
   res.send("CRUD API works :-)");
 });
