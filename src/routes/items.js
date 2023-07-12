@@ -60,10 +60,10 @@ router.get("/:id", function (req, res) {
 
 router.post('/', function(req, res){
     const item = req.body;
-    if (req.body.id && req.body.username && req.body.age && req.body.hobbies){
-        console.debug(item);
-        data.push(item);
-        res.status(201).json(item);
+    if (req.body.username && req.body.age && req.body.hobbies){
+        console.debug({id: createId(), ...item});
+        data.push({id: createId(), ...item});
+        res.status(201).json({id: createId(), ...item});
     } else {
         res.sendStatus(400);
     }
@@ -84,6 +84,11 @@ router.delete('/:id', (req, res) => {
     console.debug(data)
     res.send('Item is deleted');
 });
+
+function createId(){
+    let newId = data[data.length-1].id + 1;
+    return newId;
+}
 
 //router.put('/:id', function(req, res){
 //    const item = req.body;
