@@ -93,6 +93,25 @@ router.delete('/:id', (req, res) => {
     }
 });
 
+router.put('/:id', function(req, res){
+    let found = data.find(function (item) {
+        return item.id === parseInt(req.params.id);
+    });
+    if (checkValidId(req.params.id)){
+        if(found){
+            found.username = req.body.username || found.username;
+            found.age = req.body.age || found.age;
+            found.hobbies = req.body.hobbies || found.hobbies;
+            console.debug(found)
+            res.status(200).json(found);
+        } else {
+            res.sendStatus(404);
+        }
+    } else {
+        res.sendStatus(400);
+    }
+})
+
 function createId(){
     let newId = data[data.length-1].id + 1;
     return newId;
@@ -102,13 +121,5 @@ function checkValidId(param){
     const regx = new RegExp(/^\d+$/);
     return regx.test(param);
 }
-
-//router.put('/:id', function(req, res){
-//    const item = req.body;
-//    console.debug(item);
-//    //console.log(item);
-//    data.push(item);
-//    res.send('Items is added to the database');
-//})
 
 module.exports = router;
