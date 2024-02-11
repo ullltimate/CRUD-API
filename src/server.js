@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors({ origin: "http://localhost:8100" }));
 
 
-app.use("/items", itemsRouter);
+app.use("/api/users", itemsRouter);
 
 app.use(function(req, res){
     res.status(404).send("Not found");

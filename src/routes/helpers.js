@@ -8,4 +8,4 @@ function checkValidId(param){
     return regx.test(param);
 }
 
-export {createId, checkValidId}
+module.exports = {createId, checkValidId}
