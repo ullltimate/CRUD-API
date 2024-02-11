@@ -1,4 +1,4 @@
-import { createId, checkValidId } from "./helpers";
+const { createId, checkValidId } = require("./helpers");
 const express = require("express");
 const router = express.Router();
 
